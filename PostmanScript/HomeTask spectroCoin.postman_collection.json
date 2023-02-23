@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "35a19b9e-0749-4744-913e-09c1e70f5922",
+		"name": "HomeTask spectroCoin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25993048"
+	},
+	"item": [
+		{
+			"name": "GET spectroCoin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var expectedSchema = ",
+							" {",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"currencyFrom\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"currencyFromScale\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"currencyTo\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"currencyToScale\": {",
+							"      \"type\": \"integer\"",
+							"      },",
+							"    \"last\": {",
+							"      \"type\": \"number\"",
+							"      },",
+							"    \"lastHP\": {",
+							"      \"type\": \"number\"",
+							"      },",
+							"    \"timestamp\": {",
+							"      \"type\": \"integer\"",
+							"      },",
+							"    \"friendlyLast\": {",
+							"      \"type\": \"string\"",
+							"      },",
+							"  },",
+							"  \"required\": [",
+							"    \"currencyFrom\",",
+							"    \"currencyFromScale\",",
+							"    \"currencyTo\",",
+							"    \"currencyToScale\",",
+							"    \"last\",",
+							"    \"lastHP\",",
+							"    \"timestamp\",",
+							"    \"friendlyLast\"",
+							"  ]",
+							"}",
+							"",
+							"pm.globals.set(\"expectedSchema\", expectedSchema)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Response time is acceptable\"] = responseTime < 400;",
+							"",
+							"pm.test(\"Validate response schema\", function () {",
+							"    var expectedResult = pm.globals.get(\"expectedSchema\");",
+							"    pm.response.to.have.jsonSchema(expectedResult)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://spectrocoin.com/scapi/ticker/usd/btc",
+					"protocol": "https",
+					"host": [
+						"spectrocoin",
+						"com"
+					],
+					"path": [
+						"scapi",
+						"ticker",
+						"usd",
+						"btc"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "expectedSchema",
+			"value": ""
+		}
+	]
+}
